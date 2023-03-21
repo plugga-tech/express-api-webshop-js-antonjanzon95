@@ -37,4 +37,20 @@ router.post("/add", async function (req, res, next) {
   }
 });
 
+router.post("/user", async function (req, res, next) {
+  try {
+    const { user, token } = req.body;
+
+    if (!token) {
+      return res.status(401).json({ message: "Token required." });
+    }
+
+    const orders = await OrderModel.find({ user });
+    res.status(200).json(orders);
+  } catch (err) {
+    console.log("Error fetching orders: ", err);
+    res.status(400).json({ message: "Error fetching orders." });
+  }
+});
+
 module.exports = router;
