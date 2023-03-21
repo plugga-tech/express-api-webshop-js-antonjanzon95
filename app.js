@@ -22,6 +22,7 @@ const indexRouter = require("./backend/api/index");
 const usersRouter = require("./backend/api/users");
 const productsRouter = require("./backend/api/products");
 const ordersRouter = require("./backend/api/orders");
+const categoriesRouter = require("./backend/api/categories");
 
 const app = express();
 
@@ -36,5 +37,6 @@ app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/orders", ordersRouter);
+app.use("/api/categories", categoriesRouter);
 
 module.exports = app;
