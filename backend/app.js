@@ -18,11 +18,11 @@ async function init() {
 
 init();
 
-const indexRouter = require("./backend/api/index");
-const usersRouter = require("./backend/api/users");
-const productsRouter = require("./backend/api/products");
-const ordersRouter = require("./backend/api/orders");
-const categoriesRouter = require("./backend/api/categories");
+const indexRouter = require("./api/index");
+const usersRouter = require("./api/users");
+const productsRouter = require("./api/products");
+const ordersRouter = require("./api/orders");
+const categoriesRouter = require("./api/categories");
 
 const app = express();
 

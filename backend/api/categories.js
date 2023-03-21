@@ -18,7 +18,7 @@ router.post("/add", async function (req, res, next) {
   try {
     const { name, token } = req.body;
 
-    if (!token) {
+    if (token !== process.env.API_TOKEN) {
       return res.status(401).json({ message: "Not Authorized" });
     }
 

@@ -1,12 +1,16 @@
 var express = require("express");
 var router = express.Router();
 const OrderModel = require("../models/order-model");
-const UserModel = require("../models/user-model");
-const Order = require("../models/order-model");
 
 // HÄMTA ALLA ORDERS
-router.get("/all", async function (req, res, next) {
+router.get("/all/:token", async function (req, res, next) {
   try {
+    const token = req.params.token;
+
+    if (token !== process.env.API_TOKEN) {
+      return res.status(401).json({ message: "Not Authorized" });
+    }
+
     const orders = await OrderModel.find();
     res.status(200).json(orders);
   } catch (err) {
@@ -41,7 +45,7 @@ router.post("/user", async function (req, res, next) {
   try {
     const { user, token } = req.body;
 
-    if (!token) {
+    if (token !== process.env.API_TOKEN) {
       return res.status(401).json({ message: "Not Authorized" });
     }
 
