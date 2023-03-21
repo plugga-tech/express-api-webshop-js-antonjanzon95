@@ -1,4 +1,11 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import Cart from "./components/Cart";
+import Products from "./components/Products";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Layout from "./components/Layout";
 
 interface User {
   _id: string;
@@ -27,16 +34,19 @@ function App() {
   }, []);
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
-      Hello World
-      <div>
-        <ul>
-          {test.map((user) => (
-            <li key={user._id}>{user.name}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    <>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </>
   );
 }
 
