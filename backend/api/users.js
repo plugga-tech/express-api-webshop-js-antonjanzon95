@@ -15,10 +15,10 @@ router.get("/", async function (req, res, next) {
 });
 
 // HÄMTA SPECIFIK USER // SKICKA HELA OBJEKTET
-router.post("/:userId", async function (req, res, next) {
+router.post("/", async function (req, res, next) {
   try {
-    const userId = req.params.userId;
-    const user = await UserModel.findById(userId);
+    const { id } = req.body;
+    const user = await UserModel.findById(id);
     res.status(200).json(user);
   } catch (err) {
     console.log("Error fetching user: ", err);
