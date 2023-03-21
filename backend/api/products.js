@@ -28,6 +28,12 @@ router.get("/:id", async function (req, res, next) {
 // SKAPA PRODUKT
 router.post("/add", async function (req, res, next) {
   try {
+    const { token } = req.body;
+
+    if (!token) {
+      return res.status(401).json({ message: "Token required" });
+    }
+
     const newProduct = await ProductModel.create(req.body);
     res.status(201).json(newProduct);
   } catch (err) {

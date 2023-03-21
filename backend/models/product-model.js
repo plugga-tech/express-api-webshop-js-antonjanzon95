@@ -4,11 +4,16 @@ const ProductSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
       unique: true,
+      required: true,
     },
     description: {
       type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      unique: true,
       required: true,
     },
     price: {
