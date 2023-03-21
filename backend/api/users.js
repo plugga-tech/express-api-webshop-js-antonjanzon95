@@ -1,33 +1,68 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+const UserModel = require("../models/user-model");
+const bcrypt = require("bcrypt");
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  //hämta alla users, bara id, namn och email på ALLA users.
+// HÄMTA ALLA USERS // SKICKA INTE MED LÖSENORD // BARA ID, NAMN + EMAIL PÅ ALLA USERS
+router.get("/", async function (req, res, next) {
+  try {
+    const users = await UserModel.find({}, { password: 0, isLoggedIn: 0 });
+    res.status(200).json(users);
+  } catch (err) {
+    console.log("Error fetching users: ", err);
+    res.status(400).json({ message: "Error fetching users." });
+  }
 });
 
-router.post("/", function (req, res, next) {
-  // hämta specific user || skicka ett helt objekt
-  // {
-  //   "id": "// EN USER ID"
-  // }
+// HÄMTA SPECIFIK USER // SKICKA HELA OBJEKTET
+router.post("/:userId", async function (req, res, next) {
+  try {
+    const userId = req.params.userId;
+    const user = await UserModel.findById(userId);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("Error fetching user: ", err);
+    res.status(400).json({ message: "Error fetching user." });
+  }
 });
 
-router.post("/add", function (req, res, next) {
-  // skapa en user
-  // {
-  //   "name": "Test Testsson",
-  //   "email": "test@mail.com",
-  //   "password": "test"
-  // }
+// SKAPA USER
+router.post("/add", async function (req, res, next) {
+  try {
+    const newUser = await UserModel.create(req.body);
+    res.status(201).json(newUser);
+  } catch (err) {
+    console.log("Error adding user: ", err);
+    res.status(400).json({ message: "Error adding user." });
+  }
 });
 
-router.post("/login", function (req, res, next) {
-  // logga in user
-  //   {
-  //     "email": "// EN USER EMAIL",
-  //     "password": "// ETT USER PASSWORD"
-  //   }
+// LOGGA IN USER
+router.post("/login", async function (req, res, next) {
+  try {
+    const { email, password } = req.body;
+    const userInDb = await UserModel.findOne({ email });
+
+    if (!userInDb) {
+      return res
+        .status(401)
+        .json({ message: "A user with this email does not exist" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, userInDb.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Invalid password" });
+    }
+
+    userInDb.isLoggedIn = true;
+    await userInDb.save();
+
+    res.status(200).json(userInDb);
+  } catch (err) {
+    console.log("Error signing in user: ", err);
+    res.status(500).json({ message: "Error signing in user." });
+  }
 });
 
 module.exports = router;
