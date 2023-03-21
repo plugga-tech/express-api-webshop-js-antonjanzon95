@@ -5,17 +5,19 @@ const OrderSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  products: {
-    productId: {
-      type: [mongoose.Types.ObjectId],
-      ref: "Product",
-      required: true,
+  products: [
+    {
+      productId: {
+        type: [mongoose.Types.ObjectId],
+        ref: "Product",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
     },
-    quantity: {
-      type: Number,
-      required: true,
-    },
-  },
+  ],
 });
 
 const Order = mongoose.models.Order || mongoose.model("Order", OrderSchema);

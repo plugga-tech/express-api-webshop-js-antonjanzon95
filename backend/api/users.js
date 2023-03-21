@@ -42,6 +42,7 @@ router.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body;
     const userInDb = await UserModel.findOne({ email });
+    console.log(userInDb.password);
 
     if (!userInDb) {
       return res
@@ -49,9 +50,9 @@ router.post("/login", async function (req, res, next) {
         .json({ message: "A user with this email does not exist" });
     }
 
-    const passwordMatch = await bcrypt.compare(password, userInDb.password);
+    // const passwordMatch = await bcrypt.compare(password, userInDb.password);
 
-    if (!passwordMatch) {
+    if (password !== userInDb.password) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
