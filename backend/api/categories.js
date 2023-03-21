@@ -19,7 +19,7 @@ router.post("/add", async function (req, res, next) {
     const { name, token } = req.body;
 
     if (!token) {
-      return res.status(401).json({ message: "Token is required" });
+      return res.status(401).json({ message: "Not Authorized" });
     }
 
     const newCategory = await CategoryModel.create({ name: name });

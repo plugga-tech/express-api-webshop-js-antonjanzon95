@@ -31,7 +31,7 @@ router.post("/add", async function (req, res, next) {
     const { token } = req.body;
 
     if (!token) {
-      return res.status(401).json({ message: "Token required" });
+      return res.status(401).json({ message: "Not Authorized" });
     }
 
     const newProduct = await ProductModel.create(req.body);

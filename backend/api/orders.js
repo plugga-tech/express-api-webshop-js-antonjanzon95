@@ -42,7 +42,7 @@ router.post("/user", async function (req, res, next) {
     const { user, token } = req.body;
 
     if (!token) {
-      return res.status(401).json({ message: "Token required." });
+      return res.status(401).json({ message: "Not Authorized" });
     }
 
     const orders = await OrderModel.find({ user });
