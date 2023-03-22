@@ -3,9 +3,9 @@ import Navigation from "./Navigation";
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <div>
+    <div className="">
       <Navigation />
-      <div className="mt-20">{children}</div>
+      <div className="bg-gray-200 h-screen pt-10">{children}</div>
     </div>
   );
 }

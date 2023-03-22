@@ -1,7 +1,12 @@
-import React from "react";
+import RegisterForm from "./RegisterForm";
+import Layout from "./Layout";
 
 function Register() {
-  return <div>Register</div>;
+  return (
+    <Layout>
+      <RegisterForm />
+    </Layout>
+  );
 }
 
 export default Register;
