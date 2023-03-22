@@ -21,6 +21,7 @@ function LoginForm() {
     if (response.ok) {
       console.log("User logged in");
       alert("You have been logged in!");
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/");
     } else {
       const { message } = await response.json();

@@ -29,7 +29,15 @@ router.post("/", async function (req, res, next) {
 // SKAPA USER
 router.post("/add", async function (req, res, next) {
   try {
-    const newUser = await UserModel.create(req.body);
+    const { name, email, password } = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    console.log(typeof hashedPassword);
+    const newUser = await UserModel.create({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
     res.status(201).json(newUser);
   } catch (err) {
     console.log("Error adding user: ", err);
@@ -41,14 +49,17 @@ router.post("/add", async function (req, res, next) {
 router.post("/login", async function (req, res, next) {
   try {
     const { email, password } = req.body;
-    const userInDb = await UserModel.findOne({ email }).catch(
-      res.status(401).json({ message: "A user with this email does not exist" })
-    );
-    console.log(userInDb.password);
+    const userInDb = await UserModel.findOne({ email });
 
-    // const passwordMatch = await bcrypt.compare(password, userInDb.password);
+    if (!userInDb) {
+      return res
+        .status(401)
+        .json({ message: "A user with this email does not exist" });
+    }
 
-    if (password !== userInDb.password) {
+    const passwordMatch = await bcrypt.compare(password, userInDb.password);
+
+    if (!passwordMatch) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
