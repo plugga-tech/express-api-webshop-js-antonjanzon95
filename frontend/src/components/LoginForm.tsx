@@ -10,7 +10,7 @@ function LoginForm() {
     event.preventDefault();
 
     const data = { email: email, password: password };
-    const response = await fetch("http://localhost:3000/api/users/add", {
+    const response = await fetch("http://localhost:3000/api/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -19,11 +19,13 @@ function LoginForm() {
     });
 
     if (response.ok) {
-      console.log("User added");
-      alert("Registration completed, you are now able to login.");
-      navigate("/login");
+      console.log("User logged in");
+      alert("You have been logged in!");
+      navigate("/");
     } else {
-      console.log("Error adding user");
+      const { message } = await response.json();
+      alert(message);
+      console.log("Error logging in user");
     }
   };
 
@@ -39,6 +41,7 @@ function LoginForm() {
           <input
             type="text"
             value={email}
+            onChange={(event) => setEmail(event.target.value)}
             className="border-2 border-slate-900"
           />
         </label>
@@ -47,10 +50,13 @@ function LoginForm() {
           <input
             type="password"
             value={password}
+            onChange={(event) => setPassword(event.target.value)}
             className="border-2 border-slate-900"
           />
         </label>
-        <button className="border-2 border-slate-900 px-2">Login</button>
+        <button type="submit" className="border-2 border-slate-900 px-2">
+          Login
+        </button>
       </form>
     </div>
   );
