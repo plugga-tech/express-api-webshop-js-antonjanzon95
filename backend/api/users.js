@@ -32,12 +32,12 @@ router.post("/add", async function (req, res, next) {
     const { name, email, password } = req.body;
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);
-    console.log(typeof hashedPassword);
     const newUser = await UserModel.create({
       name: name,
       email: email,
       password: hashedPassword,
     });
+
     res.status(201).json(newUser);
   } catch (err) {
     console.log("Error adding user: ", err);

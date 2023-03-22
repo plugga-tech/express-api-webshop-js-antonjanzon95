@@ -30,4 +30,17 @@ router.post("/add", async function (req, res, next) {
   }
 });
 
+// HÄMTA NAMN PÅ KATEGORI (EGEN-GJORD ENDPOINT)
+router.get("/:categoryId", async function (req, res, next) {
+  try {
+    const id = req.params.categoryId;
+
+    const category = await CategoryModel.find({ _id: id });
+    res.status(200).json(category);
+  } catch (err) {
+    console.log("Error fetching category: ", err);
+    res.status(400).json({ message: "Error fetching category" });
+  }
+});
+
 module.exports = router;

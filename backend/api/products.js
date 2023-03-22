@@ -42,4 +42,16 @@ router.post("/add", async function (req, res, next) {
   }
 });
 
+// HÄMTA ALLA PRODUKTER FÖR EN SPECIFIK KATEGORI
+router.get("/category/:id", async function (req, res, next) {
+  try {
+    const categoryId = req.params.id;
+    const products = await ProductModel.find({ category: categoryId });
+    res.status(200).json(products);
+  } catch (err) {
+    console.log("Error fetching products ", err);
+    res.status(400).json({ message: "Error fetching products" });
+  }
+});
+
 module.exports = router;

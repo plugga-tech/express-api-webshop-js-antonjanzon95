@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import Layout from "./Layout";
 import { ObjectId } from "mongodb";
 import Heading from "./Heading";
+import ProductRenderer from "./ProductRenderer";
+import CategoryNavigation from "./CategoryNavigation";
 
-interface Product {
+export interface Product {
   _id: ObjectId;
   name: string;
   description: string;
@@ -26,19 +28,8 @@ function Products() {
   return (
     <Layout>
       <Heading name="Products" />
-      <div className="flex gap-4">
-        {products.map((product) => (
-          <article
-            key={product._id.toString()}
-            className="flex flex-col gap-2 shadow bg-slate-100 w-[300px]"
-          >
-            <p>Name: {product.name}</p>
-            <p>Description: {product.description}</p>
-            <p>Price: {product.price}</p>
-            <p>Stock: {product.stock}</p>
-          </article>
-        ))}
-      </div>
+      <CategoryNavigation />
+      <ProductRenderer products={products} />
     </Layout>
   );
 }

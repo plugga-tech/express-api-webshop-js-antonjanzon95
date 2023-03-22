@@ -1,7 +1,13 @@
 import React from "react";
+import Layout from "./Layout";
+import Heading from "./Heading";
 
 function Cart() {
-  return <div>Cart</div>;
+  return (
+    <Layout>
+      <Heading name="Cart" />
+    </Layout>
+  );
 }
 
 export default Cart;
