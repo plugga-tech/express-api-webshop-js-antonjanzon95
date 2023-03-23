@@ -6,6 +6,7 @@ import Products from "./components/Products";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Categories from "./components/Categories";
+import Orders from "./components/Orders";
 
 interface User {
   _id: string;
@@ -42,6 +43,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/products/category/:categoryId" Component={Categories} />
         </Routes>
       </Router>

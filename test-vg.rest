@@ -60,11 +60,11 @@ POST http://localhost:3000/api/products/add
 Content-Type: application/json
 
 {
-  "name": "Produkt 4",
-  "description": "Beskrivning av produkt 4",
-  "price": 100,
+  "name": "Cat toy 2",
+  "description": "Toy 2 for cats",
+  "price": 200,
   "stock": 10,
-  "category": "6419a03abb45d66eea98b76f",
+  "category": "641c990a1aae9878deed34b4",
   "token": "1234key1234"
 }
 
@@ -84,7 +84,7 @@ POST http://localhost:3000/api/categories/add
 Content-Type: application/json
 
 {
-  "name": "Kategori 2",
+  "name": "Fish",
   "token": "1234key1234"
 }
 

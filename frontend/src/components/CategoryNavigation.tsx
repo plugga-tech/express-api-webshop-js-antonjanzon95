@@ -1,25 +1,36 @@
-import React from "react";
+import { ObjectId } from "mongodb";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+
+interface Category {
+  _id: ObjectId;
+  name: string;
+}
 
 const CategoryNavigation = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch("http://localhost:3000/api/categories");
+      const data = await response.json();
+      setCategories(data);
+    };
+    fetchCategories();
+  }, []);
+
   return (
     <>
-      <nav className="w-screen h-10 bg-gray-800 text-cyan-600">
-        <ul className="mx-auto max-w-[800px] flex gap-8">
-          <li>
-            <Link to={"/products/category/6419a03abb45d66eea98b76f"}>Cats</Link>
-          </li>
-          <li>
-            <Link to={"/products/category/6419a1a1931782cf9ffcf4ea"}>Dogs</Link>
-          </li>
-          <li>
-            <Link to={"/products/category/641b5a2708d2fd271cfe421e"}>Fish</Link>
-          </li>
-          <li>
-            <Link to={"/products/category/641b5a2c08d2fd271cfe4220"}>
-              Secret
-            </Link>
-          </li>
+      <nav className="h-10 bg-gray-300 text-gray-900 font-extrabold flex items-center justify-center">
+        <ul className="max-w-[800px] flex gap-8">
+          {categories.map((category) => (
+            <li key={uuidv4()}>
+              <Link to={`/products/category/${category._id}`}>
+                {category.name}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </>

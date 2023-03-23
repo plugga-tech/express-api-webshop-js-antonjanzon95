@@ -12,7 +12,7 @@ interface Product {
   quantity: number;
 }
 
-interface User {
+export interface User {
   email: string;
   name: string;
   _id: ObjectId;
@@ -43,8 +43,6 @@ function Cart() {
     const data = await response.json();
     setUser(data);
   };
-
-  console.log(products.map(({ _id, quantity }) => ({ _id, quantity })));
 
   const handleOrder = async () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");

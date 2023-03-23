@@ -73,7 +73,7 @@ router.post("/login", async function (req, res, next) {
   }
 });
 
-// HÄMTA SPECIFIK USER // EGENGJORD ENDPOINT
+// HÄMTA SPECIFIK USER MED EMAIL // EGENGJORD ENDPOINT
 router.post("/email", async function (req, res, next) {
   try {
     const { email } = req.body;

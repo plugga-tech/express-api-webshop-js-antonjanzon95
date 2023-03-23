@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const OrderModel = require("../models/order-model");
+const ProductModel = require("../models/product-model");
 
 // HÄMTA ALLA ORDERS
 router.get("/all/:token", async function (req, res, next) {
@@ -34,6 +35,17 @@ router.post("/add", async function (req, res, next) {
       user: user,
       products: products,
     });
+
+    // deduct stock amount for product
+    const deductProductStock = products.map(({ productId, quantity }) => ({
+      updateOne: {
+        filter: { _id: productId },
+        update: { $inc: { stock: -quantity } },
+      },
+    }));
+
+    await ProductModel.bulkWrite(deductProductStock);
+
     res.status(201).json(order);
   } catch (err) {
     console.log("Error adding order: ", err);

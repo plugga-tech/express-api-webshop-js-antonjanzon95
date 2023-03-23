@@ -11,6 +11,7 @@ function Navigation() {
 
   const handleLogout = () => {
     localStorage.setItem("isLoggedIn", "false");
+    localStorage.removeItem("emailLoggedIn");
     setIsLoggedIn(false);
   };
 
@@ -37,9 +38,14 @@ function Navigation() {
           </li>
         </ul>
       ) : (
-        <span className="hover:text-cyan-800 absolute top-6 right-6">
-          <button onClick={handleLogout}>Logout</button>
-        </span>
+        <div className=" absolute top-7 right-7 flex gap-8">
+          <span className="hover:text-cyan-800">
+            <Link to="/orders">My orders</Link>
+          </span>
+          <button className="hover:text-cyan-800" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       )}
     </nav>
   );
