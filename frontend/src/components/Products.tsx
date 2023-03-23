@@ -27,8 +27,8 @@ function Products() {
 
   return (
     <Layout>
-      <Heading name="Products" />
       <CategoryNavigation />
+      <Heading name="All Products" />
       <ProductRenderer products={products} />
     </Layout>
   );

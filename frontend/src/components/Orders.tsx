@@ -84,8 +84,7 @@ const Orders = () => {
             <ul>
               {order.products.map((product) => (
                 <li key={uuidv4()}>
-                  Product Id: {product._id.toString()} - Product amount:{" "}
-                  {product.quantity}
+                  Product Id: 123 - Product amount: {product.quantity}
                 </li>
               ))}
             </ul>

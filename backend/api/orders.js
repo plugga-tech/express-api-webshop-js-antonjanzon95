@@ -24,6 +24,7 @@ router.get("/all/:token", async function (req, res, next) {
 router.post("/add", async function (req, res, next) {
   try {
     const { user, products } = req.body;
+    console.log(products);
 
     // check if user exists
     if (!user) {
@@ -37,9 +38,9 @@ router.post("/add", async function (req, res, next) {
     });
 
     // deduct stock amount for product
-    const deductProductStock = products.map(({ productId, quantity }) => ({
+    const deductProductStock = products.map(({ _id, quantity }) => ({
       updateOne: {
-        filter: { _id: productId },
+        filter: { _id: _id },
         update: { $inc: { stock: -quantity } },
       },
     }));
