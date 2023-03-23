@@ -13,14 +13,14 @@ const ProductRenderer: React.FC<Props> = ({ products }) => {
     const parsedCart = cart ? JSON.parse(cart) : [];
 
     const checkProductInCart = parsedCart.find(
-      (product: { id: ObjectId }) => product.id === productId
+      (product: { _id: ObjectId }) => product._id === productId
     );
 
     if (checkProductInCart) {
       checkProductInCart.quantity += 1;
     } else {
       parsedCart.push({
-        id: product._id,
+        _id: product._id,
         name: product.name,
         price: product.price,
         quantity: 1,

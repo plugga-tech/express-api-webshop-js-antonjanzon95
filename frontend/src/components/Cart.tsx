@@ -24,6 +24,7 @@ function Cart() {
 
   useEffect(() => {
     const cartItems = localStorage.getItem("cart");
+
     if (cartItems) {
       setProducts(JSON.parse(cartItems));
     }
@@ -43,13 +44,36 @@ function Cart() {
     setUser(data);
   };
 
+  console.log(products.map(({ _id, quantity }) => ({ _id, quantity })));
+
   const handleOrder = async () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn !== "true") {
       return alert("You must be logged in!");
     }
 
-    // const response =
+    const response = await fetch("http://localhost:3000/api/orders/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: user?._id,
+        products: products.map(({ _id, quantity }) => ({ _id, quantity })),
+      }),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      alert("Order successfully placed!");
+      handleClearCart();
+    } else {
+      alert("Something went wrong.");
+    }
+  };
+
+  const handleClearCart = () => {
+    localStorage.removeItem("cart");
+    setProducts([]);
   };
 
   return (
@@ -85,6 +109,7 @@ function Cart() {
             >
               Send order
             </button>
+            <button onClick={() => handleClearCart()}>Clear cart</button>
           </div>
         )}
       </div>
