@@ -73,4 +73,19 @@ router.post("/login", async function (req, res, next) {
   }
 });
 
+// HÄMTA SPECIFIK USER // EGENGJORD ENDPOINT
+router.post("/email", async function (req, res, next) {
+  try {
+    const { email } = req.body;
+    const user = await UserModel.findOne(
+      { email: email },
+      { password: 0, isLoggedIn: 0, __v: 0 }
+    );
+    res.status(200).json(user);
+  } catch (err) {
+    console.log("Error fetching user: ", err);
+    res.status(400).json({ message: "Error fetching user." });
+  }
+});
+
 module.exports = router;

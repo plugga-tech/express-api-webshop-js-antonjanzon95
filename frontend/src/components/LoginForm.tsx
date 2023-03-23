@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginForm() {
+function LoginForm({ navOnLogin = "/" }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,7 +22,8 @@ function LoginForm() {
       console.log("User logged in");
       alert("You have been logged in!");
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/");
+      localStorage.setItem("emailLoggedIn", email);
+      navigate(navOnLogin);
     } else {
       const { message } = await response.json();
       alert(message);

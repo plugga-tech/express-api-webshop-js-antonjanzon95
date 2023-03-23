@@ -34,11 +34,7 @@ function Categories() {
   return (
     <Layout>
       <CategoryNavigation />
-      <Heading
-        name={`${
-          category === ("Cats" || "Dogs") ? category.slice(0, -1) : category
-        } Products`}
-      />
+      <Heading name={`${category} Products`} />
       <ProductRenderer products={products} />
     </Layout>
   );
