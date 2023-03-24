@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function LoginForm({ navOnLogin = "/" }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const userContext = useContext(UserContext);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -22,7 +24,15 @@ function LoginForm({ navOnLogin = "/" }) {
       console.log("User logged in");
       alert("You have been logged in!");
       localStorage.setItem("isLoggedIn", "true");
-      localStorage.setItem("emailLoggedIn", email);
+      const user = await response.json();
+      console.log(user);
+      // userContext.setUser(user);
+      userContext.setUser({
+        _id: "641cde0979bbc83dc1c0b973",
+        name: "Anton",
+        email: "anton@mail.com",
+      });
+      console.log(userContext.user);
       navigate(navOnLogin);
     } else {
       const { message } = await response.json();

@@ -15,10 +15,6 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    isLoggedIn: {
-      type: Boolean,
-      default: false,
-    },
   },
   { collection: "users" }
 );

@@ -32,11 +32,11 @@ function Categories() {
   }, [categoryId]);
 
   return (
-    <Layout>
+    <>
       <CategoryNavigation />
       <Heading name={`${category} Products`} />
       <ProductRenderer products={products} />
-    </Layout>
+    </>
   );
 }
 

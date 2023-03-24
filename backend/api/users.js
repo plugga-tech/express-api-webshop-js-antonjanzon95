@@ -63,10 +63,13 @@ router.post("/login", async function (req, res, next) {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    userInDb.isLoggedIn = true;
-    await userInDb.save();
+    const response = {
+      _id: userInDb._id,
+      name: userInDb.name,
+      email: userInDb.email,
+    };
 
-    res.status(200).json(userInDb);
+    res.status(200).json(response);
   } catch (err) {
     console.log("Error signing in user: ", err);
     res.status(500).json({ message: "Error signing in user." });

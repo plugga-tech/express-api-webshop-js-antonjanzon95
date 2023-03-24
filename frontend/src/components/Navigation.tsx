@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function Navigation() {
+  const userContext = useContext(UserContext);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const isLoggedInCheck = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(isLoggedInCheck === "true");
+    if (userContext.user !== null) {
+      setIsLoggedIn(true);
+    }
   }, []);
 
   const handleLogout = () => {
-    localStorage.setItem("isLoggedIn", "false");
-    localStorage.removeItem("emailLoggedIn");
     setIsLoggedIn(false);
   };
 

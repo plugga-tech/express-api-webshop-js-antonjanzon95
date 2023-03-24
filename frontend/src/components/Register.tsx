@@ -2,11 +2,7 @@ import RegisterForm from "./RegisterForm";
 import Layout from "./Layout";
 
 function Register() {
-  return (
-    <Layout>
-      <RegisterForm />
-    </Layout>
-  );
+  return <RegisterForm />;
 }
 
 export default Register;

@@ -1,12 +1,17 @@
-import React from "react";
+import { useContext } from "react";
 import Layout from "./Layout";
 import Heading from "./Heading";
+import { UserContext } from "../context/UserContext";
 
 function Home() {
+  const userContext = useContext(UserContext);
+  console.log(userContext.user);
+
   return (
-    <Layout>
+    <>
       <Heading name="Home" />
-    </Layout>
+      Welcome, {userContext.user?.name}!
+    </>
   );
 }
 

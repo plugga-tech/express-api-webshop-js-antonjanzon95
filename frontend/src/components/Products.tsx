@@ -26,11 +26,11 @@ function Products() {
   }, []);
 
   return (
-    <Layout>
+    <>
       <CategoryNavigation />
       <Heading name="All Products" />
       <ProductRenderer products={products} />
-    </Layout>
+    </>
   );
 }
 
