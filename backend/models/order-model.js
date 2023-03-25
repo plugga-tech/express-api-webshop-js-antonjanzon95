@@ -8,7 +8,7 @@ const OrderSchema = mongoose.Schema({
   products: [
     {
       productId: {
-        type: [mongoose.Types.ObjectId],
+        type: mongoose.Types.ObjectId,
         ref: "Product",
         required: true,
       },

@@ -29,6 +29,7 @@ function Cart() {
     if (userContext.user == null) {
       return alert("You must be logged in!");
     }
+    console.log(products);
 
     const response = await fetch("http://localhost:3000/api/orders/add", {
       method: "POST",
@@ -36,8 +37,11 @@ function Cart() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user: userContext.user?._id,
-        products: products.map(({ _id, quantity }) => ({ _id, quantity })),
+        user: userContext.user._id,
+        products: products.map(({ _id, quantity }) => ({
+          productId: _id,
+          quantity,
+        })),
       }),
     });
     const data = await response.json();

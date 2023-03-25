@@ -65,7 +65,7 @@ Content-Type: application/json
   "name": "Produkt 3",
   "description": "Beskrivning av produkt 3",
   "price": 300, 
-  "stock": 30
+  "lager": 30
 }
 
 ###

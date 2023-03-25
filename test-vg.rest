@@ -60,11 +60,11 @@ POST http://localhost:3000/api/products/add
 Content-Type: application/json
 
 {
-  "name": "Cat toy 2",
-  "description": "Toy 2 for cats",
+  "name": "Bunny toy 1",
+  "description": "Small toy for bunnies",
   "price": 200,
-  "stock": 10,
-  "category": "641c990a1aae9878deed34b4",
+  "lager": 10,
+  "category": "641cde4f79bbc83dc1c0b980",
   "token": "1234key1234"
 }
 
@@ -84,7 +84,7 @@ POST http://localhost:3000/api/categories/add
 Content-Type: application/json
 
 {
-  "name": "Fish",
+  "name": "Bunny toys",
   "token": "1234key1234"
 }
 
@@ -114,14 +114,14 @@ POST http://localhost:3000/api/orders/add
 Content-Type: application/json
 
 {
-  "user": "// USER ID FÖR DEN SOM SKA SKAPA ORDERN",
+  "user": "641cde0979bbc83dc1c0b973",
       "products": [
     {
-      "productId": "// ETT PRODUKT ID",
+      "productId": "641cde7179bbc83dc1c0b986",
       "quantity": 1
     },
     {
-      "productId": "// ETT PRODUKT ID",
+      "productId": "641cde7c79bbc83dc1c0b988",
       "quantity": 2
     }
   ]

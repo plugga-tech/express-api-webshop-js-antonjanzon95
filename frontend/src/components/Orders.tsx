@@ -4,11 +4,19 @@ import { v4 as uuidv4 } from "uuid";
 import { ObjectId } from "mongodb";
 import { UserContext } from "../context/UserContext";
 
+interface Product {
+  _id: ObjectId;
+  name: string;
+  description: string;
+  category: ObjectId;
+  lager: number;
+}
+
 interface Order {
   _id: ObjectId;
   user: string;
   products: {
-    productId: ObjectId;
+    productId: Product;
     quantity: number;
   }[];
 }
@@ -18,7 +26,6 @@ const Orders = () => {
   const userContext = useContext(UserContext);
 
   useEffect(() => {
-    let unsubscribed = false;
     const fetchOrders = async () => {
       if (userContext.user === null) return console.log("No user");
       const userId = userContext.user._id;
@@ -30,13 +37,14 @@ const Orders = () => {
         body: JSON.stringify({ user: userId, token: "1234key1234" }),
       });
       const data = await response.json();
+      console.log(data);
       setOrders(data);
     };
 
     fetchOrders();
 
     return () => {
-      unsubscribed = true;
+      setOrders([]);
     };
   }, [userContext.user]);
 
@@ -54,10 +62,11 @@ const Orders = () => {
             >
               <h2>Order number: {order._id.toString()}</h2>
               <h2>Products: </h2>
-              <ul>
+              <ul className="flex flex-col gap-2">
                 {order.products.map((product) => (
                   <li key={uuidv4()}>
-                    Product Id: 123 - Product amount: {product.quantity}
+                    Product name: {product.productId.name} <br />
+                    Product amount: {product.quantity}
                   </li>
                 ))}
               </ul>

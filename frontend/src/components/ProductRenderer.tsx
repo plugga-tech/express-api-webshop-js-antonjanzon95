@@ -41,7 +41,7 @@ const ProductRenderer: React.FC<Props> = ({ products }) => {
             <p>Name: {product.name}</p>
             <p>Description: {product.description}</p>
             <p>Price: {product.price}</p>
-            <p>Stock: {product.stock}</p>
+            <p>Stock: {product.lager}</p>
             <button
               onClick={() => addToCart(product)}
               className="border-2 border-black"

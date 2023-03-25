@@ -41,7 +41,7 @@ router.post("/add", async function (req, res, next) {
     const deductProductStock = products.map(({ _id, quantity }) => ({
       updateOne: {
         filter: { _id: _id },
-        update: { $inc: { stock: -quantity } },
+        update: { $inc: { lager: -quantity } },
       },
     }));
 
@@ -54,6 +54,7 @@ router.post("/add", async function (req, res, next) {
   }
 });
 
+// HÄMTA ORDERS FÖR EN USER // SKALL MISSLYCKAS = INGEN KEY  // SVARA MED 401
 router.post("/user", async function (req, res, next) {
   try {
     const { user, token } = req.body;
@@ -62,7 +63,12 @@ router.post("/user", async function (req, res, next) {
       return res.status(401).json({ message: "Not Authorized" });
     }
 
-    const orders = await OrderModel.find({ user });
+    const orders = await OrderModel.find({ user }).populate(
+      "products.productId"
+    );
+
+    // const orders = await OrderModel.find({ user });
+
     res.status(200).json(orders);
   } catch (err) {
     console.log("Error fetching orders: ", err);

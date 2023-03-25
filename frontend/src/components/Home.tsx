@@ -10,7 +10,7 @@ function Home() {
   return (
     <>
       <Heading name="Home" />
-      Welcome, {userContext.user?.name}!
+      <h2 className="text-center">Welcome, {userContext.user?.name}!</h2>
     </>
   );
 }

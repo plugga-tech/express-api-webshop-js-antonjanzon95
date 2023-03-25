@@ -26,12 +26,8 @@ function LoginForm({ navOnLogin = "/" }) {
       localStorage.setItem("isLoggedIn", "true");
       const user = await response.json();
       console.log(user);
-      // userContext.setUser(user);
-      userContext.setUser({
-        _id: "641cde0979bbc83dc1c0b973",
-        name: "Anton",
-        email: "anton@mail.com",
-      });
+      userContext.setUser(user);
+
       console.log(userContext.user);
       navigate(navOnLogin);
     } else {
