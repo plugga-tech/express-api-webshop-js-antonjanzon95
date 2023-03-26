@@ -24,7 +24,6 @@ router.get("/all/:token", async function (req, res, next) {
 router.post("/add", async function (req, res, next) {
   try {
     const { user, products } = req.body;
-    console.log(products);
 
     // check if user exists
     if (!user) {

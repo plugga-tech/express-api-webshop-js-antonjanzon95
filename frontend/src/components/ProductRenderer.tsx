@@ -36,8 +36,14 @@ const ProductRenderer: React.FC<Props> = ({ products }) => {
         {products.map((product) => (
           <article
             key={product._id.toString()}
-            className="flex flex-col gap-2 shadow bg-slate-100 w-[300px]"
+            className="flex flex-col gap-2 shadow bg-white w-[300px]"
           >
+            <img
+              src="/placeholder-image.png"
+              alt="product-image"
+              width={300}
+              height={300}
+            />
             <p>Name: {product.name}</p>
             <p>Description: {product.description}</p>
             <p>Price: {product.price}</p>

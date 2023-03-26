@@ -27,7 +27,7 @@ const Orders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (userContext.user === null) return console.log("No user");
+      if (userContext.user === null) return;
       const userId = userContext.user._id;
       const response = await fetch("http://localhost:3000/api/orders/user", {
         method: "POST",
@@ -37,7 +37,6 @@ const Orders = () => {
         body: JSON.stringify({ user: userId, token: "1234key1234" }),
       });
       const data = await response.json();
-      console.log(data);
       setOrders(data);
     };
 
@@ -65,6 +64,7 @@ const Orders = () => {
               <ul className="flex flex-col gap-2">
                 {order.products.map((product) => (
                   <li key={uuidv4()}>
+                    Product ID: {product.productId._id.toString()}
                     Product name: {product.productId.name} <br />
                     Product amount: {product.quantity}
                   </li>

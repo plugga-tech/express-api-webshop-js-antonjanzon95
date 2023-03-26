@@ -29,7 +29,6 @@ function Cart() {
     if (userContext.user == null) {
       return alert("You must be logged in!");
     }
-    console.log(products);
 
     const response = await fetch("http://localhost:3000/api/orders/add", {
       method: "POST",

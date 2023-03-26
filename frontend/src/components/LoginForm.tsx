@@ -25,7 +25,6 @@ function LoginForm({ navOnLogin = "/" }) {
       alert("You have been logged in!");
       localStorage.setItem("isLoggedIn", "true");
       const user = await response.json();
-      console.log(user);
       userContext.setUser(user);
 
       console.log(userContext.user);

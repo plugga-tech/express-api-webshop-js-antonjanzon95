@@ -10,7 +10,6 @@ function Navigation() {
     if (userContext.user !== null) {
       setIsLoggedIn(true);
     }
-    console.log(userContext.user);
   }, [userContext.user]);
 
   const handleLogout = () => {
