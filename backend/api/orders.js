@@ -37,9 +37,9 @@ router.post("/add", async function (req, res, next) {
     });
 
     // deduct stock amount for product
-    const deductProductStock = products.map(({ _id, quantity }) => ({
+    const deductProductStock = products.map(({ productId, quantity }) => ({
       updateOne: {
-        filter: { _id: _id },
+        filter: { _id: productId },
         update: { $inc: { lager: -quantity } },
       },
     }));
